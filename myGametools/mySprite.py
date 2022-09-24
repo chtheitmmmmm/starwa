@@ -1,13 +1,14 @@
 import pygame
 from myGametools import mymove, mypoint
+from classes.media.frame.frame import Frame
 
 
 class MySprite(pygame.sprite.Sprite):
-    def __init__(self, frame, position):
+    def __init__(self, frame: Frame, position):
         super().__init__()
-        self.frame = frame
+        self.frame: Frame= frame
         self.image = self.frame.image
-        self.rect  = pygame.Rect(*position.position, *self.image.get_size())
+        self.rect = pygame.Rect(*position.position, *self.frame.image.get_size())
 
     def __getx(self):
         return self.rect.x
@@ -30,6 +31,9 @@ class MySprite(pygame.sprite.Sprite):
     def update(self) :
         self.frame.update()
         self.image = self.frame.image
+        
+    def draw(self, screen: pygame.Surface):
+        screen.blit(self.frame.image, self.rect)
 
     def copy(self):
         return MySprite(self.frame.copy(), mypoint.Mypoint(self.rect.topleft))

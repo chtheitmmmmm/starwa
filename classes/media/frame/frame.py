@@ -2,7 +2,7 @@ import pygame
 
 class FrameNum:
     def __init__(self, frame:pygame.Surface, num:int):
-        self.frame = frame
+        self.image = frame
         self.num   = num
     def __getframe(self):
         return self.__frame
@@ -26,7 +26,7 @@ class FrameNum:
 
     def __getitem__(self, item):
         if item == 0:
-            return self.frame
+            return self.image
         elif item == 1:
             return self.num
         else:

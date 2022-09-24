@@ -27,7 +27,7 @@ class Plane(mySprite.MySprite):
         self.havedestoryed = False
     # 在Group中调用update, draw, hit
     def update(self):
-        # update self.image
+        # update self.frame.image
         super().update()
         self.hp.update()
         if not self.destoryed:
@@ -40,7 +40,7 @@ class Plane(mySprite.MySprite):
         self.weapon.update(enemy_group)
     def draw(self, screen):
         self.hp.draw(screen)
-        screen.blit(self.image, self.rect)
+        screen.blit(self.frame.image, self.rect)
         self.weapon.draw(screen)
         # 在Group中直接调用draw即可
     def hit(self, bullet):

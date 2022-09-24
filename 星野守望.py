@@ -28,7 +28,7 @@ while True:
             sys.exit()
     if not globalsInit.flags[globalsInit.GAMEBGING]:
         globalsInit.menu.draw(screen)
-        screen.blit(globalsInit.logo.image, globalsInit.logo.rect)
+        screen.blit(globalsInit.logo.frame.image, globalsInit.logo.rect)
         globalsInit.menu_buttons.draw(screen)
         globalsInit.menu_buttons.update()
         globalsInit.menu.update()

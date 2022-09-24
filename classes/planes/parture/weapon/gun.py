@@ -120,5 +120,3 @@ class Sa_1_Gun(Enemy_Gun):
         return Sa_1_Gun(self.interval, self.bullet)
 
 
-
-

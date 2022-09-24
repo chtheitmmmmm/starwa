@@ -38,9 +38,9 @@ class HpBarSprite(mySprite.MyMoveSprite):
         super().__init__(frame, position, speed, accelerate)
         self.hp = hp
         self.totalwidth = self.rect.width
-        self.totalimage = self.image
+        self.totalimage = self.frame.image  # todo: why total image?
     def update(self):
-        self.image = pygame.Surface.subsurface(self.totalimage,
+        self.frame.image = pygame.Surface.subsurface(self.totalimage,
                     (self.totalimage.get_rect().left, self.totalimage.get_rect().top),
                                                (self.hp.left / self.hp.maxvalue * self.totalwidth, self.rect.height))
 

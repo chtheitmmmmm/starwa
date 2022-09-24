@@ -21,7 +21,7 @@ class Sa_1(plane.Plane):
 
     def draw(self, screen):
         if not self.havedestoryed:
-            screen.blit(self.image, self.rect)
+            screen.blit(self.frame.image, self.rect)
             self.hp.draw(screen)
         self.weapon.draw(screen)
 
