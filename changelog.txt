@@ -45,7 +45,7 @@
     更改：
         为提高性能，将子弹的碰撞判断改为圆判断。
         为避免一人变千人变的bug， MySprite的所有子类都被加上了一个copy方法
-        改写Player, PlayerPlane, Enemy
+        改写Player, PlayerPlane, EnemyPlane
         媒体文件组织逻辑更改，与类的传参逻辑保持一致。所有实物类均有audio和frame保存媒体数据
         架构被重写：
             使PlayerPlane和Soldier都继承自Plane类，更方便管理
