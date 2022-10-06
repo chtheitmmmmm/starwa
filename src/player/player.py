@@ -14,6 +14,7 @@ class Player:
     """
     def __init__(self, *args, plane: PlayerPlane, **kwargs):
         self.__plane = plane
+        self.w = self.a = self.s = self.d = self.space = False
 
     @property
     def plane(self) -> PlayerPlane:
@@ -48,37 +49,33 @@ class Player:
         self.plane.update(enemy_group)
         if self.plane.state == self.plane.PLAIN:
             keys = pygame.key.get_pressed()
-            w = keys[pygame.K_w]
-            a = keys[pygame.K_a]
-            s = keys[pygame.K_s]
-            d = keys[pygame.K_d]
-            space = keys[pygame.K_SPACE]
-            if w and not s:
-                if a and not d:
+            if self.w and not self.s:
+                if self.a and not self.d:
                     self.wa_key()
-                elif d and not a:
+                elif self.d and not self.a:
                     self.wd_key()
                 else:
                     self.w_key()
                     self.plane.down(self.plane.down_hor)
-            elif s and not w:
-                if a and not d:
+            elif self.s and not self.w:
+                if self.a and not self.d:
                     self.sa_key()
-                elif d and not a:
+                elif self.d and not self.a:
                     self.sd_key()
                 else:
                     self.s_key()
                     self.plane.down(self.plane.down_hor)
             else:
-                if a and not d:
+                if self.a and not self.d:
                     self.a_key()
-                elif d and not a:
+                elif self.d and not self.a:
                     self.d_key()
                 else:
                     self.plane.down(self.plane.down_hor)
                 self.plane.down(self.plane.down_ver)
-            if space:
+            if self.space:
                 self.space_key()
+
 
 class SinglePlayer(Player):
     """
@@ -102,10 +99,18 @@ class SinglePlayer(Player):
         self.plane.acce(self.plane.RIGHT_BOTTOM_ACCE)
     def space_key(self):
         self.plane.fire()
+    def update(self, enemy_group):
+        keys = pygame.key.get_pressed()
+        self.w = keys[pygame.K_w]
+        self.a = keys[pygame.K_a]
+        self.s = keys[pygame.K_s]
+        self.d = keys[pygame.K_d]
+        self.space = keys[pygame.K_SPACE]
+        super(SinglePlayer, self).update(enemy_group)
 
 @stateDefine(
     'INVINCIBLE',   # 玩家刚加入处于无敌状态
-    'PLAIN'         # 出于正常状态
+    'PLAIN'         # 处于正常状态
 )
 class OnlinePlayer(Player):
     """
@@ -129,6 +134,7 @@ class OnlinePlayer(Player):
                 'direction': 'w'
             }
         })
+
     def a_key(self):
         self.instructors.append({
             'type': 'player_instructor',
@@ -197,28 +203,44 @@ class OnlinePlayer(Player):
     def process(self, info: dict):
         ins = info['direction']
         if ins == 'w':
+            self.w = True
             self.plane.acce(self.plane.TOP_ACCE)
         elif ins == 'a':
+            self.a = True
             self.plane.acce(self.plane.LEFT_ACCE)
         elif ins == 's':
+            self.s = True
             self.plane.acce(self.plane.BOTTOM_ACCE)
         elif ins == 'd':
+            self.d = True
             self.plane.acce(self.plane.RIGHT_ACCE)
         elif ins == 'wa':
+            self.w = True
+            self.a = True
             self.plane.acce(self.plane.LEFT_TOP_ACCE)
         elif ins == 'wd':
+            self.w = True
+            self.d = True
             self.plane.acce(self.plane.RIGHT_TOP_ACCE)
         elif ins == 'sa':
+            self.s = True
+            self.a = True
             self.plane.acce(self.plane.LEFT_BOTTOM_ACCE)
         elif ins == 'sd':
+            self.s = True
+            self.d = True
             self.plane.acce(self.plane.RIGHT_BOTTOM_ACCE)
         elif ins == 'space':
+            self.space = True
             self.plane.fire()
 
     def update(self, enemy_group):
         super(OnlinePlayer, self).update(enemy_group)
+        self.w = self.a = self.s = self.d = self.space = False
         if self.state == self.INVINCIBLE:
             self.plane.cure()
+
+
 
 
 __all__ = ['Player', 'SinglePlayer', 'OnlinePlayer']

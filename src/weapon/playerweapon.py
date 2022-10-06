@@ -105,6 +105,145 @@ _blue_point = Bullet(
     hurt        = _hurt_blue_point
 )
 
+_blue_1_1_left_point = Bullet(
+    media       = Media({
+        ORD: {
+            ACTIONS: [{
+                AUDIO: _shoot_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['point'])
+            }],
+            ITER_TIME: 1
+        },
+        'boom': {
+            ACTIONS: [{
+                AUDIO: _boom_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['effect'])
+            }],
+            ITER_TIME: 1
+        }
+    }, ORD),
+    pos         = Vector2(0, 0),
+    speed       = Vector2(-1, 1),
+    accelerate  = Vector2(0, -0.2),
+    hurt        = 15
+)
+
+_blue_1_1_right_point = Bullet(
+    media       = Media({
+        ORD: {
+            ACTIONS: [{
+                AUDIO: _shoot_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['point'])
+            }],
+            ITER_TIME: 1
+        },
+        'boom': {
+            ACTIONS: [{
+                AUDIO: _boom_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['effect'])
+            }],
+            ITER_TIME: 1
+        }
+    }, ORD),
+    pos         = Vector2(0, 0),
+    speed       = Vector2(1, 1),
+    accelerate  = Vector2(0, -0.2),
+    hurt        = 15
+)
+
+_blue_2_1_left_point = Bullet(
+    media       = Media({
+        ORD: {
+            ACTIONS: [{
+                AUDIO: _shoot_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['point'])
+            }],
+            ITER_TIME: 1
+        },
+        'boom': {
+            ACTIONS: [{
+                AUDIO: _boom_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['effect'])
+            }],
+            ITER_TIME: 1
+        }
+    }, ORD),
+    pos         = Vector2(0, 0),
+    speed       = Vector2(-2, 1),
+    accelerate  = Vector2(0, -0.3),
+    hurt        = 20
+)
+
+_blue_2_1_right_point = Bullet(
+    media       = Media({
+        ORD: {
+            ACTIONS: [{
+                AUDIO: _shoot_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['point'])
+            }],
+            ITER_TIME: 1
+        },
+        'boom': {
+            ACTIONS: [{
+                AUDIO: _boom_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['effect'])
+            }],
+            ITER_TIME: 1
+        }
+    }, ORD),
+    pos         = Vector2(0, 0),
+    speed       = Vector2(2, 1),
+    accelerate  = Vector2(0, -0.3),
+    hurt        = 20
+)
+
+_blue_2_2_left_bar = Bullet(
+    media       = Media({
+        ORD: {
+            ACTIONS: [{
+                AUDIO: _shoot_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['bar'])
+            }],
+            ITER_TIME: 1
+        },
+        'boom': {
+            ACTIONS: [{
+                AUDIO: _boom_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['effect'])
+            }],
+            ITER_TIME: 1
+        }
+    }, ORD),
+    pos         = Vector2(0, 0),
+    speed       = Vector2(-2, 2),
+    accelerate  = Vector2(-0.5, -0.3),
+    hurt        = 30
+)
+
+_blue_2_2_right_bar = Bullet(
+    media=Media({
+        ORD: {
+            ACTIONS: [{
+                AUDIO: _shoot_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['bar'])
+            }],
+            ITER_TIME: 1
+        },
+        'boom': {
+            ACTIONS: [{
+                AUDIO: _boom_audio[0],
+                FRAME: FrameGroup(_bullet_water['blue']['effect'])
+            }],
+            ITER_TIME: 1
+        }
+    }, ORD),
+    pos         = Vector2(0, 0),
+    speed       = Vector2(2, 2),
+    accelerate  = Vector2(0.5, -0.3),
+    hurt        = 30
+)
+
+
 @firenumfy(1)
 class PlayerGun(ConstantBulletGun):
     pass
@@ -116,10 +255,20 @@ lion_weapon = WeaponGroup([
 ])
 
 bird_weapon = WeaponGroup([
+    (PlayerGun(_blue_1_1_left_point), Vector2(-1 / 6, 13)),
+    (PlayerGun(_blue_2_1_left_point), Vector2(0, 9)),
+    (PlayerGun(_blue_bar), Vector2(1 / 8, 10)),
     (PlayerGun(_blue_bar), Vector2(1 / 6, 10)),
+    (PlayerGun(_blue_2_2_left_bar), Vector2(1 / 5, 30)),
+    (PlayerGun(_blue_bar), Vector2(1 / 4, 10)),
     (PlayerGun(_blue_point), Vector2(1 / 3, 3)),
     (PlayerGun(_blue_point), Vector2(2 / 3, 3)),
-    (PlayerGun(_blue_bar), Vector2(5 / 6, 10))
+    (PlayerGun(_blue_bar), Vector2(3 / 4, 10)),
+    (PlayerGun(_blue_2_2_right_bar), Vector2(4 / 5, 30)),
+    (PlayerGun(_blue_bar), Vector2(5 / 6, 10)),
+    (PlayerGun(_blue_bar), Vector2(7 / 8, 10)),
+    (PlayerGun(_blue_2_1_right_point), Vector2(1, 9)),
+    (PlayerGun(_blue_1_1_right_point), Vector2(7 / 6, 13)),
 ])
 
 __all__ = [

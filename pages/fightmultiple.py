@@ -46,10 +46,11 @@ class FightMultiplePage(metaclass=page({})):
         self.bg.pos = Vector2(*self.app.loadingpg.globalmsg['bgpos'])
         self.playergroup = PlayerGroup(
             main_player=OnlinePlayer(
-                plane=self.app.selectpg.character.plane,
-                id=self.app.loadingpg.playerid
+                plane   = self.app.selectpg.character.plane,
+                id      = self.app.loadingpg.playerid
             )
         )
+        self.playergroup.players[0].plane.pos = Vector2((self.app.constants['meta']['windowSize'][0] - 128) / 2, self.app.constants["locations"]["planeInitialVertical"])
         self.playergroup.init(self.app.loadingpg.globalmsg)
         self.enemygroup = OnlineEnemyGroup(*enemyplanetypes)
         self.enemygroup.switch("GUEST")
@@ -68,7 +69,7 @@ class FightMultiplePage(metaclass=page({})):
                         if not content:
                             continue
                         content = json.loads(content)
-                        print('content: ', content)
+                        # print('content: ', content)
                         msg = Msg(content)
                         if msg.type == 'host':
                             self.switchHost()

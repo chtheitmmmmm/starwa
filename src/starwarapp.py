@@ -62,8 +62,14 @@ class StarwarApp(AbstractApp):
             while True:
                 self.circle()
         except Exception as e:
-            print(e)
-            self.exit()
+            if self.state == self.LOADING:
+                self.loadingpg.socket.close()
+                self.loadingpg.netthread.join(0)
+            elif self.state == self.FIGHT_MULTIPLE:
+                self.fightmultiplepg.socket.close()
+                self.fightmultiplepg.netthread.join(0)
+            pygame.quit()
+            raise e
 
     def update(self):
         self.pages.update()

@@ -194,7 +194,7 @@ class Sc_4Plane(
     """
 
 
-enemyplanetypes = [Sc_1Plane]
+enemyplanetypes = [Sa_1Plane, Sc_1Plane, Sc_2Plane, Sc_3Plane, Sc_4Plane]
 
 __all__ = [
     'EnemyPlane',

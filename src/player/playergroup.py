@@ -29,10 +29,14 @@ class PlayerGroup(pygame.sprite.Group):
                 id = player['id'],
                 plane = self.getPlaneByCode(player['code'])(
                     hprelative = True,
-                    hppos = Vector2(0, -30)
+                    hppos = Vector2(0, 128)
                 ),
             )
             newplayer.plane.lose(newplayer.plane.hp.total - player['hp'])
+            newplayer.plane.pos = Vector2(*player['pos'])
+            newplayer.plane.speed = Vector2(*player['speed'])
+            newplayer.plane.accelerate = Vector2(*player['accelerate'])
+            newplayer.switch('PLAIN')
             self.players.append(newplayer)
             self.add(newplayer.plane)
 
@@ -48,7 +52,7 @@ class PlayerGroup(pygame.sprite.Group):
         }
         """
         planetype = self.getPlaneByCode(info['code'])
-        newplayer = OnlinePlayer(plane = planetype(hprelative=True, hppos=Vector2(0, 10)), id = info['id'])
+        newplayer = OnlinePlayer(plane = planetype(hprelative=True, hppos=Vector2(0, 128)), id = info['id'])
         self.players.append(newplayer)
         self.add(newplayer.plane)
 
@@ -75,10 +79,20 @@ class PlayerGroup(pygame.sprite.Group):
         返回玩家指令
         """
         for player in self.players:
+            if player == self.players[0]:
+                keys = pygame.key.get_pressed()
+                player.w = keys[pygame.K_w]
+                player.a = keys[pygame.K_a]
+                player.s = keys[pygame.K_s]
+                player.d = keys[pygame.K_d]
+                player.space = keys[pygame.K_SPACE]
             player.update(enemy_group)
-        insturctors = self.players[0].instructors[:]
-        self.players[0].instructors.clear()
-        return insturctors
+        if self.players:
+            insturctors = self.players[0].instructors[:]
+            self.players[0].instructors.clear()
+            return insturctors
+        else:
+            return []
 
     def vincible(self, info: dict):
         vincibleplayer = self.getPlayerById(info['id'])

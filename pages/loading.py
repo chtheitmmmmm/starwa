@@ -69,7 +69,7 @@ class LoadingPage(
                 msg = self.socket.recv(2048)
                 if msg:
                     self.msg = Msg(json.loads(msg.decode(self.encoding)))    # 获取服务器返回的数据
-                    print('content: ', self.msg)
+                    # print('content: ', self.msg)
                     if self.playerstate.value == 'UNKNOWN':
                         # 获取连接信息
                         self.playerid = self.msg.value['id']
@@ -113,14 +113,10 @@ class LoadingPage(
                     self.ldbgmstate.switch('LOADING')
                     self.ldbgm2.play(-1)
         else:
-            if self.ldbgm1.get_num_channels() or self.ldbgm2.get_num_channels():
-                self.ldbgm1.stop()
-                self.ldbgm2.stop()
-                self.ldbgm3.play()
-                self.connection_info.text = '连接成功，正在进入游戏'
-                midalign_verticalItem(self.app.screen, self.connection_info)
-            elif not self.ldbgm3.get_num_channels():
-                self.switch('OK')           # 加载完成
+            self.ldbgm1.stop()
+            self.ldbgm2.stop()
+            self.ldbgm3.play()
+            self.switch('OK')           # 加载完成
 
 
 loadingpg = LoadingPage(

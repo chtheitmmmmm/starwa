@@ -149,9 +149,9 @@ class PlayerPlane(ArmedPlane):
             """
             super(type(self), self).__init__(
                 media = media.copy(),
-                pos = Vector2(0, constants["locations"]["planeInitialVertical"]),
+                pos = Vector2((constants['meta']['windowSize'][0] - 128) / 2, constants["locations"]["planeInitialVertical"]),
                 acce = acce,
-                hp = hp,
+                hp = Hpv(hp.total, hp.total),
                 hpbar = cls.hpbar.copy(),
                 hprelative = hprelative,
                 hppos = hppos

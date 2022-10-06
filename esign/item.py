@@ -205,7 +205,7 @@ class HpItem(Item):
         """
         直接击杀
         """
-        self.hp.lose(self.hp.left)
+        self.hp.clear()
 
     def alive(self):
         """
